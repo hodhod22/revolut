@@ -1,0 +1,59 @@
+{
+  "lastUpdated": "2026-04-23T13:48:14.143Z",
+  "referenceBtcPrice": 814610.895,
+  "dailyOffsetsAssigned": true,
+  "availableOffsets": [
+    -0.2,
+    -0.16,
+    -0.12,
+    -0.08,
+    -0.04,
+    0.04,
+    0.08,
+    0.12,
+    0.16,
+    0.2
+  ],
+  "coins": {
+    "valoria": {
+      "basePrice": 50,
+      "offset": 0.2
+    },
+    "nexcoin": {
+      "basePrice": 20,
+      "offset": 0.12
+    },
+    "aurista": {
+      "basePrice": 10,
+      "offset": 0.08
+    },
+    "veritus": {
+      "basePrice": 4,
+      "offset": -0.12
+    },
+    "unifyx": {
+      "basePrice": 2,
+      "offset": 0.16
+    },
+    "solviro": {
+      "basePrice": 1,
+      "offset": -0.04
+    },
+    "fidexus": {
+      "basePrice": 0.4,
+      "offset": -0.16
+    },
+    "optivus": {
+      "basePrice": 0.2,
+      "offset": -0.2
+    },
+    "luminar": {
+      "basePrice": 0.1,
+      "offset": -0.08
+    },
+    "cryptos": {
+      "basePrice": 0.01,
+      "offset": 0.04
+    }
+  }
+}
