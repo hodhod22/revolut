@@ -84,7 +84,6 @@ const Markets = () => {
     }
   };
 
-  // KÖP (long)
   const handleBuy = async (coinId) => {
     let amount = getRawAmount(coinId);
     if (amount === undefined || amount === "" || isNaN(amount)) {
@@ -104,7 +103,6 @@ const Markets = () => {
     }
   };
 
-  // SÄLJ (short)
   const handleSell = async (coinId) => {
     let amountSEK = getRawAmount(coinId);
     if (amountSEK === undefined || amountSEK === "" || isNaN(amountSEK)) {
@@ -185,7 +183,6 @@ const Markets = () => {
                 <tr>
                   <th className="p-4">Tillgång</th>
                   <th>KÖP</th>
-                  
                   <th>24h %</th>
                   <th>Belopp (SEK)</th>
                   <th>Position</th>
@@ -197,6 +194,11 @@ const Markets = () => {
                   const ownedCoin = portfolio.find((p) => p.coinId === coin.id);
                   const ownedAmount = ownedCoin?.amount || 0;
                   const ownedValue = ownedAmount * coin.current_price;
+                  // Använd bid_price, men om den saknas eller är 0, använd current_price
+                  const displayPrice =
+                    coin.bid_price && coin.bid_price !== 0
+                      ? coin.bid_price
+                      : coin.current_price;
                   return (
                     <React.Fragment key={coin.id}>
                       <tr className="border-b border-gray-800 hover:bg-[#1E1F2E]/50">
@@ -225,11 +227,10 @@ const Markets = () => {
                           >
                             <span className="text-xs">KÖP</span>
                             <span className="text-sm font-normal">
-                              {formatPrice(coin.bid_price, coin.id)} SEK
+                              {formatPrice(displayPrice, coin.id)} SEK
                             </span>
                           </button>
                         </td>
-
                         <td
                           className={
                             coin.price_change_percentage_24h >= 0
@@ -303,7 +304,7 @@ const Markets = () => {
                       </tr>
                       {expandedCoin === coin.id && (
                         <tr key={`${coin.id}-expanded`}>
-                          <td colSpan="7" className="p-0 bg-[#0F1222]">
+                          <td colSpan="6" className="p-0 bg-[#0F1222]">
                             <SimpleRealtimeChart
                               coinId={coin.id}
                               coinName={coin.name}
@@ -324,6 +325,10 @@ const Markets = () => {
               const ownedCoin = portfolio.find((p) => p.coinId === coin.id);
               const ownedAmount = ownedCoin?.amount || 0;
               const ownedValue = ownedAmount * coin.current_price;
+              const displayPrice =
+                coin.bid_price && coin.bid_price !== 0
+                  ? coin.bid_price
+                  : coin.current_price;
               return (
                 <div
                   key={coin.id}
@@ -346,16 +351,13 @@ const Markets = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleBuy(coin.id)}
-                        className="min-w-40 bg-green-600 hover:bg-green-700 text-white text-xs font-normal py-1 px-2 rounded-lg flex flex-col items-center"
-                      >
-                        <span>KÖP</span>
-                        <span>{formatPrice(coin.bid_price, coin.id)} SEK</span>
-                      </button>
-                    
-                    </div>
+                    <button
+                      onClick={() => handleBuy(coin.id)}
+                      className="min-w-40 bg-green-600 hover:bg-green-700 text-white text-xs font-normal py-1 px-2 rounded-lg flex flex-col items-center"
+                    >
+                      <span>KÖP</span>
+                      <span>{formatPrice(displayPrice, coin.id)} SEK</span>
+                    </button>
                   </div>
                   <div className="p-4 grid grid-cols-2 gap-2 text-sm">
                     <div className="text-gray-400">24h %:</div>
